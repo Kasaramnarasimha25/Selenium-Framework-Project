@@ -1,1 +1,24 @@
+name: Testsigma CI/CD
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  testsigma-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run Testsigma Test Plan
+        run: |
+          chmod +x runsmoketests.sh
+          ./runsmoketests.sh
+        env:
+          TESTSIGMA_API_KEY: ${{ secrets.TESTSIGMA_API_KEY }}
+          TESTSIGMA_TESTPLAN_ID: ${{ secrets.TESTSIGMA_TESTPLAN_ID }}
 
